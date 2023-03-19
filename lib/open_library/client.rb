@@ -13,17 +13,28 @@ module OpenLibrary
 
     def get_work(work_id)
       response = self.class.get("/works/#{work_id}.json")
-      JSON.parse(response.body)
+      handle_response(response)
     end
 
     def get_covers(work_id)
       response = self.class.get("/works/#{work_id}.json")
-      JSON.parse(response.body)['covers']
+      handle_response(response)['covers']
     end
 
     def get_author(author_id)
       response = self.class.get("/authors/#{author_id}.json")
-      JSON.parse(response.body)
+      handle_response(response)
+    end
+
+    private
+
+    def handle_response(response)
+      case response.code
+      when 200
+        JSON.parse(response.body)
+      else
+        raise OpenLibrary::Error, "API request failed with status code: #{response.code}, message: #{response.message}"
+      end
     end
   end
 end
