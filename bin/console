@@ -3,13 +3,21 @@
 
 require "bundler/setup"
 require "open_library"
+require_relative '../lib/open_library/client'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
+
+# NOTE: run `./bin/console` to execute this file and experiment with the gem
+
+client = OpenLibrary::Client.new
+# puts client.search("Assassin's Apprentice")
+# p client.get_covers('OL2707183W').first.class
+puts client.get_author('OL395837A')
 
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
 
-require "irb"
-IRB.start(__FILE__)
+# require "irb"
+# IRB.start(__FILE__)
